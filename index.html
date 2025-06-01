@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Hemant Kushwaha - Frontend Developer and Crypto YouTuber">
+  <meta name="keywords" content="Hemant Kushwaha, Frontend Developer, Crypto, AToZ Crypto, airdrops">
+  <meta name="author" content="Hemant Kushwaha">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hemant Kushwaha | Personal Bio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    /* CSS Variables */
+:root {
+  --neon-blue: #00f7ff;
+  --neon-purple: #ff00ff;
+  --neon-green: #00ff9f;
+  --dark-bg: #0a0f1f;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glow-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 40px rgba(128, 0, 255, 0.4);
+  --holographic-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.6);
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--dark-bg);
+  color: #e0e0e0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom Cursor */
+.cursor {
+  position: fixed;
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--neon-blue);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.05s ease;
+  box-shadow: var(--glow-shadow);
+}
+
+.cursor.trail {
+  transform: scale(1.8);
+  background: rgba(0, 255, 255, 0.3);
+}
+
+/* Three.js Canvas */
+#three-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+/* Holographic Overlay */
+.holographic-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+  opacity: 0.2;
+  z-index: -1;
+  animation: holographicShift 20s ease infinite;
+}
+
+/* Parallax Wrapper */
+.parallax-wrapper {
+  perspective: 200px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.2), var(--dark-bg));
+  transform-style: preserve-3d;
+  animation: shaderGlow 10s ease infinite;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://source.unsplash.com/1600x900/?tech,cyber') no-repeat center center/cover;
+  opacity: 0.1;
+  transform: translateZ(-20px) scale(1.2);
+  z-index: -1;
+}
+
+/* Shader-Inspired Animation */
+@keyframes shaderGlow {
+  0%, 100% { background: radial-gradient(circle, rgba(0, 255, 255, 0.2), var(--dark-bg)); }
+  50% { background: radial-gradient(circle, rgba(255, 0, 255, 0.2), var(--dark-bg)); }
+}
+
+@keyframes holographicShift {
+  0%, 100% { background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1)); }
+  50% { background: linear-gradient(45deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.1)); }
+}
+
+/* Profile Image */
+.profile-img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid rgba(255, 255, 255, 0.05);
+  box-shadow: var(--holographic-shadow);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.profile-img:hover {
+  transform: scale(1.2) rotateY(15deg) rotateX(15deg);
+  box-shadow: 0 0 60px rgba(0, 255, 255, 0.9), 0 0 100px rgba(255, 0, 255, 0.7);
+}
+
+/* Holographic Text */
+.holographic-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4.5rem;
+  color: var(--neon-blue);
+  text-shadow: var(--holographic-shadow);
+  position: relative;
+  animation: glitch 2s linear infinite;
+}
+
+.holographic-text::before,
+.holographic-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.holographic-text::before {
+  color: var(--neon-purple);
+  animation: glitch-top 1s linear infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+.holographic-text::after {
+  color: var(--neon-green);
+  animation: glitch-bottom 1.5s linear infinite;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+/* Glitch Animations */
+@keyframes glitch {
+  2%, 64% { transform: translate(2px, 0) skew(0deg); }
+  4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+  62% { transform: translate(0, 0) skew(5deg); }
+}
+
+@keyframes glitch-top {
+  2%, 64% { transform: translate(4px, -2px); }
+  4%, 60% { transform: translate(-4px, 2px); }
+  62% { transform: translate(0, 0) skew(5deg); }
+}
+
+@keyframes glitch-bottom {
+  2%, 64% { transform: translate(-2px, 2px); }
+  4%, 60% { transform: translate(2px, -2px); }
+  62% { transform: translate(0, 0) skew(-5deg); }
+}
+
+/* Tagline */
+.tagline {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.4rem;
+  color: #d4d4d4;
+  opacity: 0.9;
+  margin-bottom: 50px;
+  animation: slideUp 1.2s ease-in-out forwards;
+}
+
+/* About Section */
+.about {
+  padding: 120px 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px) saturate(200%);
+  border-radius: 30px;
+  margin: 40px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+  transform: translateZ(-10px);
+}
+
+.about h2 {
+  font-size: 3rem;
+  padding-left: 100px;
+}
+
+.about p {
+  font-size: 1.3rem;
+  line-height: 2;
+  color: #b0b0b0;
+  padding: 100px;
+}
+
+.about a {
+  color: var(--neon-green);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.about a:hover {
+  color: var(--neon-purple);
+  text-shadow: var(--holographic-shadow);
+}
+
+/* Connect Section */
+.connect {
+  padding: 120px 0;
+  text-align: center;
+  transform: translateZ(-5px);
+}
+
+.connect h2 {
+  font-size: 3rem;
+  margin-bottom: 50px;
+}
+
+.social-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.social-btn {
+  display: inline-block;
+  padding: 20px 40px;
+  font-size: 1.4rem;
+  color: #e0e0e0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  text-decoration: none;
+  transition: all 0.5s ease;
+  box-shadow: var(--glow-shadow);
+  transform-style: preserve-3d;
+}
+
+.social-btn:hover {
+  transform: translateY(-10px) rotateX(15deg);
+  background: rgba(0, 255, 255, 0.4);
+  color: var(--neon-blue);
+  box-shadow: 0 15px 40px rgba(0, 255, 255, 0.7);
+}
+
+/* Footer */
+footer {
+  padding: 40px 0;
+  text-align: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+}
+
+footer p {
+  font-size: 1.1rem;
+  color: #b0b0b0;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .holographic-text { font-size: 3rem; }
+  .about h2, .connect h2 { font-size: 2.4rem; }
+  .profile-img { width: 200px; height: 200px; }
+  .social-links { flex-direction: column; }
+  .social-btn { width: 100%; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .holographic-text { font-size: 2.2rem; }
+  .about h2, .connect h2 { font-size: 1.8rem; }
+  .profile-img { width: 150px; height: 150px; }
+}
+  </style>
+</head>
+<body>
+  <canvas id="three-canvas"></canvas> <!-- Canvas for Three.js 3D background -->
+  <div class="holographic-overlay"></div> <!-- Holographic effect layer -->
+  <div class="parallax-wrapper">
+    <header class="hero" data-tilt data-tilt-max="10">
+      <div class="container">
+        <img src="https://avatars.githubusercontent.com/u/134399725?v=4" alt="Hemant's Photo" class="profile-img" data-tilt data-tilt-max="15">
+        <h1 class="holographic-text">Hemant Kushwaha</h1>
+        <p class="tagline">Software Engineer</p>
+      </div>
+    </header>
+    <main>
+      <section class="about">
+        <div class="container">
+          <h2 class="holographic-text">About Me</h2>
+          <p>
+            I’m Hemant Kushwaha, a MERN Stack Developer crafting the future of web development with MongoDB, Express.js, React.js, and Node.js. My expertise lies in building dynamic, scalable, and user-focused full-stack applications that redefine digital experiences. As the creator of AToZ Crypto on YouTube, I empower a global audience with insights into blockchain, cryptocurrencies, and airdrops. Driven by innovation and a passion for technology, I’m here to transform ideas into reality. Let’s code the future together!
+
+
+
+
+          </p>
+        </div>
+      </section>
+      <section class="connect">
+        <div class="container">
+          <h2 class="holographic-text">Connect with Me</h2>
+          <ul class="social-links">
+            <li><a href="https://www.linkedin.com/in/hemant-kushwaha-86ba6a279" target="_blank" class="social-btn" data-tilt data-tilt-max="10">LinkedIn</a></li>
+            <li><a href="https://github.com/Hemantkumar468" target="_blank" class="social-btn" data-tilt data-tilt-max="10">GitHub</a></li>
+           
+          </ul>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="container">
+        <p>© 2025 Hemant Kushwaha. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+  <script >// Three.js Starfield
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+const starsGeometry = new THREE.BufferGeometry();
+const starsCount = 2000;
+const posArray = new Float32Array(starsCount * 3);
+
+for (let i = 0; i < starsCount * 3; i++) {
+  posArray[i] = (Math.random() - 0.5) * 2000;
+}
+
+starsGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+const starsMaterial = new THREE.PointsMaterial({ color: 0x00f7ff, size: 2, sizeAttenuation: true });
+const starField = new THREE.Points(starsGeometry, starsMaterial);
+scene.add(starField);
+
+camera.position.z = 100;
+
+function animate() {
+  requestAnimationFrame(animate);
+  starField.rotation.y += 0.001;
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Custom Cursor with Trailing Effect
+const cursor = document.createElement('div');
+cursor.classList.add('cursor');
+document.body.appendChild(cursor);
+
+const trails = [];
+for (let i = 0; i < 5; i++) {
+  const trail = document.createElement('div');
+  trail.classList.add('cursor', 'trail');
+  trail.style.transition = `all ${0.1 + i * 0.05}s ease`;
+  document.body.appendChild(trail);
+  trails.push(trail);
+}
+
+document.addEventListener('mousemove', (e) => {
+  cursor.style.left = `${e.clientX}px`;
+  cursor.style.top = `${e.clientY}px`;
+  trails.forEach((trail, index) => {
+    setTimeout(() => {
+      trail.style.left = `${e.clientX}px`;
+      trail.style.top = `${e.clientY}px`;
+      trail.style.opacity = 1 - index * 0.2;
+      trail.style.transform = `scale(${1 - index * 0.1})`;
+    }, index * 50);
+  });
+});
+
+document.querySelectorAll('a, .profile-img').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('trail'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('trail'));
+});
+
+// Initialize Vanilla Tilt
+VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
+  max: 15,
+  speed: 400,
+  glare: true,
+  'max-glare': 0.5
+});</script>
+</body>
+</html>
