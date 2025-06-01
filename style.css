@@ -1,0 +1,298 @@
+/* CSS Variables */
+:root {
+  --neon-blue: #00f7ff;
+  --neon-purple: #ff00ff;
+  --neon-green: #00ff9f;
+  --dark-bg: #0a0f1f;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glow-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 40px rgba(128, 0, 255, 0.4);
+  --holographic-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.6);
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--dark-bg);
+  color: #e0e0e0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom Cursor */
+.cursor {
+  position: fixed;
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--neon-blue);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.05s ease;
+  box-shadow: var(--glow-shadow);
+}
+
+.cursor.trail {
+  transform: scale(1.8);
+  background: rgba(0, 255, 255, 0.3);
+}
+
+/* Three.js Canvas */
+#three-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+/* Holographic Overlay */
+.holographic-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+  opacity: 0.2;
+  z-index: -1;
+  animation: holographicShift 20s ease infinite;
+}
+
+/* Parallax Wrapper */
+.parallax-wrapper {
+  perspective: 200px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.2), var(--dark-bg));
+  transform-style: preserve-3d;
+  animation: shaderGlow 10s ease infinite;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://source.unsplash.com/1600x900/?tech,cyber') no-repeat center center/cover;
+  opacity: 0.1;
+  transform: translateZ(-20px) scale(1.2);
+  z-index: -1;
+}
+
+/* Shader-Inspired Animation */
+@keyframes shaderGlow {
+  0%, 100% { background: radial-gradient(circle, rgba(0, 255, 255, 0.2), var(--dark-bg)); }
+  50% { background: radial-gradient(circle, rgba(255, 0, 255, 0.2), var(--dark-bg)); }
+}
+
+@keyframes holographicShift {
+  0%, 100% { background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1)); }
+  50% { background: linear-gradient(45deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.1)); }
+}
+
+/* Profile Image */
+.profile-img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid rgba(255, 255, 255, 0.05);
+  box-shadow: var(--holographic-shadow);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.profile-img:hover {
+  transform: scale(1.2) rotateY(15deg) rotateX(15deg);
+  box-shadow: 0 0 60px rgba(0, 255, 255, 0.9), 0 0 100px rgba(255, 0, 255, 0.7);
+}
+
+/* Holographic Text */
+.holographic-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4.5rem;
+  color: var(--neon-blue);
+  text-shadow: var(--holographic-shadow);
+  position: relative;
+  animation: glitch 2s linear infinite;
+}
+
+.holographic-text::before,
+.holographic-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.holographic-text::before {
+  color: var(--neon-purple);
+  animation: glitch-top 1s linear infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+.holographic-text::after {
+  color: var(--neon-green);
+  animation: glitch-bottom 1.5s linear infinite;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+/* Glitch Animations */
+@keyframes glitch {
+  2%, 64% { transform: translate(2px, 0) skew(0deg); }
+  4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+  62% { transform: translate(0, 0) skew(5deg); }
+}
+
+@keyframes glitch-top {
+  2%, 64% { transform: translate(4px, -2px); }
+  4%, 60% { transform: translate(-4px, 2px); }
+  62% { transform: translate(0, 0) skew(5deg); }
+}
+
+@keyframes glitch-bottom {
+  2%, 64% { transform: translate(-2px, 2px); }
+  4%, 60% { transform: translate(2px, -2px); }
+  62% { transform: translate(0, 0) skew(-5deg); }
+}
+
+/* Tagline */
+.tagline {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.4rem;
+  color: #d4d4d4;
+  opacity: 0.9;
+  margin-bottom: 50px;
+  animation: slideUp 1.2s ease-in-out forwards;
+}
+
+/* About Section */
+.about {
+  padding: 120px 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px) saturate(200%);
+  border-radius: 30px;
+  margin: 40px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+  transform: translateZ(-10px);
+}
+
+.about h2 {
+  font-size: 3rem;
+  padding-left: 100px;
+}
+
+.about p {
+  font-size: 1.3rem;
+  line-height: 2;
+  color: #b0b0b0;
+  padding: 100px;
+}
+
+.about a {
+  color: var(--neon-green);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.about a:hover {
+  color: var(--neon-purple);
+  text-shadow: var(--holographic-shadow);
+}
+
+/* Connect Section */
+.connect {
+  padding: 120px 0;
+  text-align: center;
+  transform: translateZ(-5px);
+}
+
+.connect h2 {
+  font-size: 3rem;
+  margin-bottom: 50px;
+}
+
+.social-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.social-btn {
+  display: inline-block;
+  padding: 20px 40px;
+  font-size: 1.4rem;
+  color: #e0e0e0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  text-decoration: none;
+  transition: all 0.5s ease;
+  box-shadow: var(--glow-shadow);
+  transform-style: preserve-3d;
+}
+
+.social-btn:hover {
+  transform: translateY(-10px) rotateX(15deg);
+  background: rgba(0, 255, 255, 0.4);
+  color: var(--neon-blue);
+  box-shadow: 0 15px 40px rgba(0, 255, 255, 0.7);
+}
+
+/* Footer */
+footer {
+  padding: 40px 0;
+  text-align: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+}
+
+footer p {
+  font-size: 1.1rem;
+  color: #b0b0b0;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .holographic-text { font-size: 3rem; }
+  .about h2, .connect h2 { font-size: 2.4rem; }
+  .profile-img { width: 200px; height: 200px; }
+  .social-links { flex-direction: column; }
+  .social-btn { width: 100%; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .holographic-text { font-size: 2.2rem; }
+  .about h2, .connect h2 { font-size: 1.8rem; }
+  .profile-img { width: 150px; height: 150px; }
+}

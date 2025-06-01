@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Hemant Kushwaha - Frontend Developer and Crypto YouTuber">
+  <meta name="keywords" content="Hemant Kushwaha, Frontend Developer, Crypto, AToZ Crypto, airdrops">
+  <meta name="author" content="Hemant Kushwaha">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hemant Kushwaha | Personal Bio</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+  <canvas id="three-canvas"></canvas> <!-- Canvas for Three.js 3D background -->
+  <div class="holographic-overlay"></div> <!-- Holographic effect layer -->
+  <div class="parallax-wrapper">
+    <header class="hero" data-tilt data-tilt-max="10">
+      <div class="container">
+        <img src="https://avatars.githubusercontent.com/u/134399725?v=4" alt="Hemant's Photo" class="profile-img" data-tilt data-tilt-max="15">
+        <h1 class="holographic-text">Hemant Kushwaha</h1>
+        <p class="tagline">Software Engineer</p>
+      </div>
+    </header>
+    <main>
+      <section class="about">
+        <div class="container">
+          <h2 class="holographic-text">About Me</h2>
+          <p>
+            I’m Hemant Kushwaha, a MERN Stack Developer crafting the future of web development with MongoDB, Express.js, React.js, and Node.js. My expertise lies in building dynamic, scalable, and user-focused full-stack applications that redefine digital experiences. As the creator of AToZ Crypto on YouTube, I empower a global audience with insights into blockchain, cryptocurrencies, and airdrops. Driven by innovation and a passion for technology, I’m here to transform ideas into reality. Let’s code the future together!
+
+
+
+
+          </p>
+        </div>
+      </section>
+      <section class="connect">
+        <div class="container">
+          <h2 class="holographic-text">Connect with Me</h2>
+          <ul class="social-links">
+            <li><a href="https://www.linkedin.com/in/hemant-kushwaha-86ba6a279" target="_blank" class="social-btn" data-tilt data-tilt-max="10">LinkedIn</a></li>
+            <li><a href="https://github.com/Hemantkumar468" target="_blank" class="social-btn" data-tilt data-tilt-max="10">GitHub</a></li>
+           
+          </ul>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="container">
+        <p>© 2025 Hemant Kushwaha. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+  <script >// Three.js Starfield
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+const starsGeometry = new THREE.BufferGeometry();
+const starsCount = 2000;
+const posArray = new Float32Array(starsCount * 3);
+
+for (let i = 0; i < starsCount * 3; i++) {
+  posArray[i] = (Math.random() - 0.5) * 2000;
+}
+
+starsGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+const starsMaterial = new THREE.PointsMaterial({ color: 0x00f7ff, size: 2, sizeAttenuation: true });
+const starField = new THREE.Points(starsGeometry, starsMaterial);
+scene.add(starField);
+
+camera.position.z = 100;
+
+function animate() {
+  requestAnimationFrame(animate);
+  starField.rotation.y += 0.001;
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Custom Cursor with Trailing Effect
+const cursor = document.createElement('div');
+cursor.classList.add('cursor');
+document.body.appendChild(cursor);
+
+const trails = [];
+for (let i = 0; i < 5; i++) {
+  const trail = document.createElement('div');
+  trail.classList.add('cursor', 'trail');
+  trail.style.transition = `all ${0.1 + i * 0.05}s ease`;
+  document.body.appendChild(trail);
+  trails.push(trail);
+}
+
+document.addEventListener('mousemove', (e) => {
+  cursor.style.left = `${e.clientX}px`;
+  cursor.style.top = `${e.clientY}px`;
+  trails.forEach((trail, index) => {
+    setTimeout(() => {
+      trail.style.left = `${e.clientX}px`;
+      trail.style.top = `${e.clientY}px`;
+      trail.style.opacity = 1 - index * 0.2;
+      trail.style.transform = `scale(${1 - index * 0.1})`;
+    }, index * 50);
+  });
+});
+
+document.querySelectorAll('a, .profile-img').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('trail'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('trail'));
+});
+
+// Initialize Vanilla Tilt
+VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
+  max: 15,
+  speed: 400,
+  glare: true,
+  'max-glare': 0.5
+});</script>
+</body>
+</html>
